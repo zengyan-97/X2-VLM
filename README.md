@@ -108,7 +108,7 @@ We release all training codes. Specify "--task" and "--config" to finetune on ot
 If you find this repository useful, please considering giving ⭐ or citing:
 ```
 @article{zeng2022x,
-  title={X $\^{} 2$-VLM: All-In-One Pre-trained Model For Vision-Language Tasks},
+  title={X$^2$-VLM: All-In-One Pre-trained Model For Vision-Language Tasks},
   author={Zeng, Yan and Zhang, Xinsong and Li, Hang and Wang, Jiawei and Zhang, Jipeng and Zhou, Wangchunshu},
   journal={arXiv preprint arXiv:2211.12402},
   year={2022}
