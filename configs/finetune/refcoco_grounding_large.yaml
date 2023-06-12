@@ -1,0 +1,41 @@
+train_file: ['data/finetune/refcoco+_train.json']
+test_file: ['data/finetune/refcoco+_val.json','data/finetune/refcoco+_test.json']
+
+refcoco_data: 'data/finetune/'
+det_file: 'data/finetune/refcoco+/dets.json'
+coco_file: 'data/finetune/refcoco+/cocos.json'
+
+image_root: 'images/coco/'
+
+careful_hflip: True  # first check whether 'left' or 'right' in captions
+
+## Vision Encoder
+use_beit_v2: True
+vision_config: 'configs/config_beit2_large.json'
+image_res: 384
+patch_size: 16
+
+
+## Text Encoder (& Cross Encoder)
+text_encoder: 'data/bert-large-uncased'
+text_num_hidden_layers: 18  # 12 + 6
+text_fusion_start_at: 12
+
+text_drop_path_rate: 0.1
+cross_drop_path_rate: 0.1
+
+## Training
+batch_size: 20  # xN A100s, i don't remember how many GPUs i used... (i guess either 8 or 16)
+max_tokens: 40
+
+
+## Other Settings
+optimizer: {opt: adamW, lr: 1e-5, weight_decay: 0.01, lr_mult: 2}
+schedular: {sched: linear, epochs: 10, num_warmup_steps: 0.1}
+
+
+
+
+
+
+

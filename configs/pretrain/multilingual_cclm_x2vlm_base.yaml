@@ -1,0 +1,91 @@
+# Adapt X^2-VLM to multilingual by Cross-View Language Modeling
+
+## Data
+train_file: [
+"path/to/cc-3m-mm-uc2",
+"path/to/sbu-mm",
+"path/to/vg-mm",
+"path/to/coco-mm",
+               ]  # multilingual x multimodal
+
+train_dataset_size: 5004332
+
+images: {image_key: "binary",
+         is_image_rpath: False, # read path or base64 encoding
+         caption_key: "caption",
+         tokenized: False,  # whether texts have been tokenized
+         batch_size: 60,  # x8 gpus
+         num_workers: 4,  # better -> the total number of training files % (world_size * num_workers) == 0
+         iter_perc: 1.0,
+}
+
+
+train_file_regions: [
+    'path/to/coco_object-mm-google',
+    'path/to/vg_object-mm-google',
+    'path/to/vg_region-mm',
+]  # multilingual
+regions: {image_key: "binary", is_image_rpath: False, caption_key: "caption", tokenized: False, code_switch: True,
+          careful_hflip: True,
+          batch_size: 60, max_images: 26, max_regions: 5, min_perc_in_image: 0.5, num_workers: 4}
+
+
+train_file_mtext: [
+    "path/to/wikimatrix",
+    "path/to/wikimatrix_en_bn",
+]  # multilingual parallel texts
+mtexts: {source_key: "source_text",
+         target_key: "target_text",
+         tokenized: False,  # whether texts have been tokenized
+         batch_size: 60,  # x8 gpus
+         num_workers: 4,  # better -> the total number of training files % (world_size * num_workers) == 0
+         iter_perc: 1.0,
+         max_words: 64,
+         max_tokens: 64,
+         mask_prob: 0.4,
+         max_masks: 16,
+}
+
+
+## Vision Encoder
+use_beit_v2: True
+vision_config: 'configs/config_beit2_base.json'
+image_res: 224
+patch_size: 16
+
+
+
+## Text Encoder (& Cross Encoder)
+model_type: 'CrossViewLM'
+text_encoder: 'data/xlm-roberta-base'
+text_num_hidden_layers: 12
+cross_encoder: 'data/bert-base-uncased'
+cross_num_hidden_layers: 6
+
+is_xvlm_ckpt: True  # is of XVLMBase or XVLMPlusBase
+xvlm_ckpt_text_num_hidden_layers: 12  # if is_xvlm_ckpt
+replace_text_encoder: True
+
+
+## Training
+mixed_in_batch: True
+calc_image_bbox_loss: False
+embed_dim: 256
+temp: 0.07
+
+max_words: 30
+max_tokens: 30
+mask_prob: 0.4
+max_masks: 10
+
+mask_whole_word: False  # not implemented
+skipgram_prb: 0.2
+skipgram_size: 3
+
+
+## Other Settings
+ckpt_frequent_step: 50000
+ckpt_frequent: 100000  # epoch
+optimizer: {opt: adamW, lr: 4e-5, weight_decay: 0.01, lr_mult: 2, vision_lr: 2e-5, text_lr: 8e-5, cross_lr: 4e-5}
+schedular: {sched: linear, epochs: 39, num_warmup_steps: 1000}  # 400k steps
+accelerator: {SYNCBN: false, FP16_OPT_LEVEL: O0, FP16_LOSS_SCALE: dynamic, RNG_SEED: 42, GRAD_ACCUMULATE_STEPS: 1, CLIP_GRAD_NORM: 1.0}

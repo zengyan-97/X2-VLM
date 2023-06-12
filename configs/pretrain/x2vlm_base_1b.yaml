@@ -1,0 +1,85 @@
+## Data
+print_broken_data: False
+
+train_file: [
+"path/to/laion_filtered",
+"path/to/laion2b_filtered",
+]
+train_dataset_size: 1323042683 # for IterableDataset
+
+
+train_file_aux: [
+"path/to/coco_testset_filtered",
+"path/to/vg_testset_filtered",
+"path/to/sbu_bs64",
+"path/to/cc3m_bs64",
+"path/to/cc12m_bs64",
+]  # cleaner data
+aux_iter_perc: 0.15  # aux_iter_perc% iterate on train_file_aux, (1-aux_iter_perc%) iterate on train_file
+images: {image_key: "binary",
+         is_image_rpath: False, # read path or base64 encoding
+         caption_key: "desc",
+         aux_caption_key: "desc",
+         tokenized: False,  # whether texts have been tokenized
+         batch_size: 128,  # 128 x 24 = 3072
+         num_workers: 4,  # better -> the total number of training files % (world_size * num_workers) == 0
+}
+
+train_file_regions: [
+    'path/to/coco2017_obj_rmtest_2207',
+    'path/to/vg_attr_obj_rmtest_2207',
+    'path/to/vg_region_rmtest_2207',
+    "path/to/refcoco_region_2207",
+    "path/to/gqa_obj_2207",
+    "path/to/flickr_obj_2207",
+    "path/to/openimages_v6_maxrez800_obj_region_2207",
+    "path/to/object365_obj_2207",
+]  # objects & regions；
+regions: {image_key: "binary", is_image_rpath: False, caption_key: "caption", tokenized: False,
+          iter_perc: 0.5, batch_size: 64, max_images: 26, max_regions: 5, min_perc_in_image: 0.5, num_workers: 4}
+
+
+## Vision Encoder
+use_beit_v2: True
+vision_config: 'configs/config_beit2_base.json'
+image_res: 224
+patch_size: 16
+local_attn_depth: -1
+
+
+## Text Encoder (& Cross Encoder)
+text_encoder: 'data/bert-base-uncased'
+text_num_hidden_layers: 18  # include cross
+text_fusion_start_at: 12
+
+
+## Training
+mixed_in_batch: True
+calc_image_bbox_loss: False
+embed_dim: 256
+temp: 0.07
+
+max_words: 30
+max_tokens: 30
+mask_prob: 0.5
+max_masks: 12
+mask_whole_word: True
+skipgram_prb: 0.2
+skipgram_size: 3
+
+stop_calc_itm: 200000  # steps; matching loss calculates hard negatives causing nan loss
+
+
+## Other Settings
+ckpt_frequent_step: 50000
+ckpt_frequent: 100000000  # inf
+optimizer: {opt: adamW, lr: 1e-4, weight_decay: 0.01, lr_mult: 2}
+schedular: {sched: linear, lr: 1e-4, epochs: 3, num_warmup_steps: 2500}
+accelerator: {SYNCBN: false, FP16_OPT_LEVEL: O1, FP16_LOSS_SCALE: dynamic, RNG_SEED: 42, GRAD_ACCUMULATE_STEPS: 1, CLIP_GRAD_NORM: 1.0}
+
+
+
+
+
+
+

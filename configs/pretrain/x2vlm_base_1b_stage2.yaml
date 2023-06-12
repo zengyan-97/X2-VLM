@@ -1,0 +1,96 @@
+## Data
+train_file: [
+"path/to/coco_testset_filtered",
+"path/to/vg_testset_filtered",
+"path/to/sbu_bs64",
+"path/to/cc3m_bs64",
+]
+
+train_dataset_size: 5114489
+images: {image_key: "binary",
+         is_image_rpath: False, # read path or base64 encoding
+         caption_key: "desc",
+         tokenized: False,  # whether texts have been tokenized
+         batch_size: 64,  # 64 x 16 = 1024
+         num_workers: 4,  # better -> the total number of training files % (world_size * num_workers) == 0
+}
+
+
+train_file_regions: [
+    'path/to/coco2017_obj_rmtest_2207',
+    'path/to/vg_attr_obj_rmtest_2207',
+    'path/to/vg_region_rmtest_2207',
+    "path/to/refcoco_region_2207",
+    "path/to/gqa_obj_2207",
+    "path/to/flickr_obj_2207",
+    "path/to/openimages_v6_maxrez800_obj_region_2207",
+    "path/to/object365_obj_2207",
+]  # objects & regions；
+regions: {image_key: "binary", is_image_rpath: False, caption_key: "caption", tokenized: False,
+          iter_perc: 1.0, batch_size: 64, max_images: 26, max_regions: 5, min_perc_in_image: 0.5, num_workers: 4}
+
+
+train_file_videos: [
+ "path/to/howto100m_filtered",  # 1704857
+ "path/to/ytt180m_filtered",  # 5306576
+]
+train_file_videos_aux: [
+"path/to/webvid2_5m",  # 2492317
+]  # cleaner data
+video_aux_iter_perc: 0.35  # aux_iter_perc% iterate on train_file_videos_aux, (1-aux_iter_perc%) iterate on train_file_videos
+
+
+videos: {image_key: "video_frames",
+         is_image_rpath: False, # read path or base64 encoding
+         caption_key: "text",
+         tokenized: False,  # whether texts have been tokenized
+         frame_len: 3,  # 5 -> 3, too slow
+         use_random_sampling: True,
+         combine_continuous_clips: True,
+         mininum_frames_before_sampling: 8,  # 10 -> 8 since webvid has 15+ frames per video on average
+         batch_size: 40,  # 40*16=640 64 -> 48, too slow
+         iter_perc: 1.0,
+         num_workers: 8,  # better -> the total number of training files % (world_size * num_workers) == 0
+}
+
+
+## Vision Encoder
+use_beit_v2: True
+vision_config: 'configs/config_beit2_base.json'
+image_res: 224
+patch_size: 16
+local_attn_depth: -1
+
+frame_len: 3
+add_frame_pos: True
+video_encoding: 'avgpool'
+
+
+## Text Encoder (& Cross Encoder)
+text_encoder: 'data/bert-base-uncased'
+text_num_hidden_layers: 18
+text_fusion_start_at: 12
+
+
+## Training
+mixed_in_batch: True
+calc_image_bbox_loss: False
+embed_dim: 256
+temp: 0.07
+
+max_words: 40
+max_tokens: 40
+mask_prob: 0.5
+max_masks: 12
+mask_whole_word: True
+skipgram_prb: 0.2
+skipgram_size: 3
+
+
+## Other Settings
+ckpt_frequent_step: 50000
+ckpt_frequent: 1000000  # epoch
+optimizer: {opt: adamW, lr: 6e-5, weight_decay: 0.01, lr_mult: 2}
+schedular: {sched: linear, lr: 6e-5, epochs: 81, num_warmup_steps: 1000}  # 400k steps, video -> 27 epochs
+accelerator: {SYNCBN: false, FP16_OPT_LEVEL: O1, FP16_LOSS_SCALE: dynamic, RNG_SEED: 42, GRAD_ACCUMULATE_STEPS: 1, CLIP_GRAD_NORM: 1.0}
+

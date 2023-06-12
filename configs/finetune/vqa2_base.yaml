@@ -1,0 +1,36 @@
+train_file: ['data/finetune/vqa_train.json',
+             'data/finetune/vqa_val.json',
+             'data/finetune/vg_qa.json']
+             
+test_file: ['data/finetune/vqa_test.json']
+answer_list: 'data/finetune/answer_list.json'
+
+vqa_root: 'images/coco/'
+vg_root: 'images/visualgenome/'
+
+## Vision Encoder
+use_beit_v2: True
+vision_config: 'configs/config_beit2_base.json'
+image_res: 768
+patch_size: 16
+
+
+## Text Encoder (& Cross Encoder)
+text_encoder: 'data/bert-base-uncased'
+text_num_hidden_layers: 18
+text_fusion_start_at: 12
+
+## Training
+num_dec_layers: 6
+large_lr_for_dec: True
+batch_size_train: 8  # x16 a100
+accumulate_steps: 1
+batch_size_test: 32
+max_tokens: 40
+k_test: 128
+
+
+## Other Settings
+optimizer: {opt: adamW, lr: 4e-5, weight_decay: 0.01, lr_mult: 2, vision_lr: 2e-5, text_lr: 4e-5}
+schedular: {sched: linear, epochs: 5, num_warmup_steps: 0.1}
+start_eval: 2  # epoch index

@@ -1,0 +1,45 @@
+train_file: ['data/finetune/coco_karpathy/coco_karpathy_train.json']
+val_file: 'data/finetune/coco_karpathy/coco_karpathy_val.json'
+test_file: 'data/finetune/coco_karpathy/coco_karpathy_test.json'
+
+image_root: 'images/coco/'
+val_gt_file: 'data/finetune/coco_karpathy/coco_karpathy_val_gt.json'
+test_gt_file: 'data/finetune/coco_karpathy/coco_karpathy_test_gt.json'
+
+## Vision Encoder
+use_beit_v2: True
+vision_config: 'configs/config_beit2_large.json'
+image_res: 384
+patch_size: 16
+
+
+## Text Encoder (& Cross Encoder)
+text_encoder: 'data/bert-large-uncased'
+text_num_hidden_layers: 18
+text_fusion_start_at: 12
+
+
+## Training
+apply_FG_free: True
+batch_size_train: 16  # xN A100s, i don't remember how many GPUs i used... (i guess either 8 or 16)
+batch_size_test: 20
+max_tokens: 40
+max_words: 40
+label_smoothing: 0.1
+mask_prob: 0.6
+max_masks: 18
+mask_whole_word: True
+skipgram_prb: 0.2
+skipgram_size: 3
+
+## generation configs
+max_length: 50
+min_length: 5
+num_beams: 3
+length_penalty: 0
+prompt: 'a picture of '
+
+
+optimizer: {opt: adamW, lr: 5e-6, weight_decay: 0.01, lr_mult: 2, vision_lr: 1e-5, text_lr: 5e-6}
+schedular: {sched: linear, epochs: 5, num_warmup_steps: 0.05}
+start_eval: 0  # epoch index
