@@ -80,8 +80,8 @@ All datasets are publicly available. Some datasets can be downloaded [here](http
 
 
 #### Checkpoints, Configs and Logs
-We have released all codes. However, now we only provide parts of fine-tuned ckpts (and training configs and logs). 
-[vqa-base](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_1b_vqa.th)  
+We have released all codes. However, now we only provide parts of fine-tuned ckpts (and training configs and logs).   
+[vqa-base](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_1b_vqa.th)    
 [vqa-large](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_vqa.th)  
 [captioning-large](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_captioning.tar)   
 [refcoco-bbox-large](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_grounding.tar)  
