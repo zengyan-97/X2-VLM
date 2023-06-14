@@ -64,12 +64,12 @@ The processed COCO & VG annotations can be downloaded [here](https://drive.googl
 
 #### Checkpoints
 Please make sure all parameters are loaded correctly.   
-[X2VLM-base (4M)](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_4m.th)    
-[X2VLM-large (4M)](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_4m.th)    
-[X2VLM-base (1B)](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_1b.th)  
-[X2VLM-large (1B)](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b.th)   
-[CCLM-X2VLM-base](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/cclm_x2vlm_base.th)  
-[CCLM-X2VLM-large](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/cclm_x2vlm_large.th)
+[X2VLM-base (4M)](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_4m.th)    
+[X2VLM-large (4M)](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_4m.th)    
+[X2VLM-base (1B)](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_1b.th)  
+[X2VLM-large (1B)](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b.th)   
+[CCLM-X2VLM-base](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/cclm_x2vlm_base.th)  
+[CCLM-X2VLM-large](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/cclm_x2vlm_large.th)
 
 
 
@@ -81,10 +81,10 @@ All datasets are publicly available. Some datasets can be downloaded [here](http
 
 #### Checkpoints, Configs and Logs
 We have released all codes. However, now we only provide parts of fine-tuned ckpts (and training configs and logs).   
-[vqa-base](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_1b_vqa.th)    
-[vqa-large](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_vqa.th)  
-[captioning-large](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_captioning.tar)   
-[refcoco-bbox-large](http://tosv.byted.org/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_grounding.tar)  
+[vqa-base](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_base_1b_vqa.th)    
+[vqa-large](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_vqa.th)  
+[captioning-large](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_captioning.tar)   
+[refcoco-bbox-large](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_grounding.tar)  
 It takes time for us to retrieve our previous training logs. If you need more, please submit a Github issue and we will return to your request later.   
 
 
@@ -108,7 +108,7 @@ We release all training codes. Specify "--task" and "--config" to finetune on ot
 If you find this repository useful, please considering giving ⭐ or citing:
 ```
 @article{zeng2022x,
-  title={X$^2$-VLM: All-In-One Pre-trained Model For Vision-Language Tasks},
+  title={X $\^{} 2$-VLM: All-In-One Pre-trained Model For Vision-Language Tasks},
   author={Zeng, Yan and Zhang, Xinsong and Li, Hang and Wang, Jiawei and Zhang, Jipeng and Zhou, Wangchunshu},
   journal={arXiv preprint arXiv:2211.12402},
   year={2022}
