@@ -86,7 +86,8 @@ We have released all codes. However, now we only provide parts of fine-tuned ckp
 [captioning-large](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_captioning.tar)   
 [refcoco-bbox-large](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/x2vlm_large_1b_grounding.tar)  
 It takes time for us to retrieve our previous training logs. If you need more, please submit a Github issue and we will return to your request later.   
-
+[coco-retrieval-base-rerun](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/xvlm_beit_1b_stage2_coco_rerun.th)    
+[coco-retrieval-large-rerun](https://lf-robot-opensource.bytetos.com/obj/lab-robot-public/x2vlm_ckpts_2release/xvlm_beit_1b_large_stage2_coco_rerun.th)
 
 
 #### Examples
