@@ -1,0 +1,5 @@
+{
+  "ckpt": "data/beitv2_base_patch16_224_pt1k_ft21k.pth",
+  "vision_width": 768,
+  "patch_size": 16
+}
